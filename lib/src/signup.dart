@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_login_signup/src/Widget/bezierContainer.dart';
@@ -17,7 +16,7 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  bool visible = false ;
+  bool visible = false;
 
   final nameController = TextEditingController();
   final addressController = TextEditingController();
@@ -27,10 +26,10 @@ class _SignUpPageState extends State<SignUpPage> {
   final passwordController = TextEditingController();
   final confirmController = TextEditingController();
 
-  Future newRegister() async{
+  Future newRegister() async {
     // Showing CircularProgressIndicator.
     setState(() {
-      visible = true ;
+      visible = true;
     });
 
     // Getting value from Controller
@@ -46,7 +45,15 @@ class _SignUpPageState extends State<SignUpPage> {
     var url = 'https://lemongrocer.com/app/voice_insert.php';
 
     // Store all data with Param Name.
-    var data = {'name':name, 'address':address, 'city':city, 'email':email, 'mobile':mobile, 'password':password, 'confirm':confirm};
+    var data = {
+      'name': name,
+      'address': address,
+      'city': city,
+      'email': email,
+      'mobile': mobile,
+      'password': password,
+      'confirm': confirm
+    };
 
     // Starting Web API Call.
     var response = await http.post(url, body: json.encode(data));
@@ -55,8 +62,7 @@ class _SignUpPageState extends State<SignUpPage> {
     var message = jsonDecode(response.body);
 
     // If the Response Message is Matched.
-    if(message == 'Success')
-    {
+    if (message == 'Success') {
       // Hiding the CircularProgressIndicator.
       setState(() {
         visible = false;
@@ -64,11 +70,8 @@ class _SignUpPageState extends State<SignUpPage> {
 
       // Navigate to Profile Screen & Sending Email to Next Screen.
       Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => LoginPage())
-      );
-    }else{
-
+          context, MaterialPageRoute(builder: (context) => LoginPage()));
+    } else {
       // If Email or Password did not Matched.
       // Hiding the CircularProgressIndicator.
       setState(() {
@@ -91,7 +94,8 @@ class _SignUpPageState extends State<SignUpPage> {
             ],
           );
         },
-      );}
+      );
+    }
   }
 
   Widget _backButton() {
@@ -115,7 +119,8 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _entryField(TextEditingController cont1, String title, {bool isPassword = false}) {
+  Widget _entryField(TextEditingController cont1, String title,
+      {bool isPassword = false}) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Column(
@@ -129,7 +134,7 @@ class _SignUpPageState extends State<SignUpPage> {
             height: 10,
           ),
           TextField(
-              controller:cont1,
+              controller: cont1,
               obscureText: isPassword,
               decoration: InputDecoration(
                   border: InputBorder.none,
@@ -142,33 +147,32 @@ class _SignUpPageState extends State<SignUpPage> {
 
   Widget _submitButton() {
     return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.symmetric(vertical: 15),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(5)),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-                color: Colors.grey.shade200,
-                offset: Offset(2, 4),
-                blurRadius: 5,
-                spreadRadius: 2)
-          ],
-          gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [Color(0xfffbb448), Color(0xfff7892b)])),
-      child: RaisedButton(
-        onPressed: () {
-          newRegister();
-        },
-        color: Color((0xfbb44800)),
-        child: Text(
-          'Register & Pay',
-          style: TextStyle(fontSize: 20, color: Colors.white),
-        ),
-      )
-    );
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.symmetric(vertical: 15),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                  color: Colors.grey.shade200,
+                  offset: Offset(2, 4),
+                  blurRadius: 5,
+                  spreadRadius: 2)
+            ],
+            gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [Color(0xfffbb448), Color(0xfff7892b)])),
+        child: RaisedButton(
+          onPressed: () {
+            newRegister();
+          },
+          color: Color((0xfbb44800)),
+          child: Text(
+            'Register & Pay',
+            style: TextStyle(fontSize: 20, color: Colors.white),
+          ),
+        ));
   }
 
   Widget _loginAccountLabel() {
@@ -210,7 +214,7 @@ class _SignUpPageState extends State<SignUpPage> {
       text: TextSpan(
           text: 'L',
           style: GoogleFonts.portLligatSans(
-            textStyle: Theme.of(context).textTheme.display1,
+            textStyle: Theme.of(context).textTheme.headline4,
             fontSize: 30,
             fontWeight: FontWeight.w700,
             color: Color(0xffe46b10),
@@ -231,13 +235,13 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget _emailPasswordWidget() {
     return Column(
       children: <Widget>[
-        _entryField(nameController,"Name"),
-        _entryField(addressController,"Address"),
-        _entryField(cityController,"City"),
-        _entryField(emailController,"Email"),
-        _entryField(mobileController,"Mobile"),
-        _entryField(passwordController,"Password", isPassword: true),
-        _entryField(confirmController,"Confirm Password", isPassword: true),
+        _entryField(nameController, "Name"),
+        _entryField(addressController, "Address"),
+        _entryField(cityController, "City"),
+        _entryField(emailController, "Email"),
+        _entryField(mobileController, "Mobile"),
+        _entryField(passwordController, "Password", isPassword: true),
+        _entryField(confirmController, "Confirm Password", isPassword: true),
       ],
     );
   }
