@@ -18,13 +18,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  bool visible = false ;
+  bool visible = false;
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
 
-  Future loginUser() async{
+  Future loginUser() async {
     setState(() {
-      visible = true ;
+      visible = true;
     });
     // Getting value from Controller
     String username = usernameController.text;
@@ -33,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
     var url = 'https://lemongrocer.com/app/voice_insert.php';
 
     // Store all data with Param Name.
-    var data = {'username':username, 'password':password, 'type':'Login' };
+    var data = {'username': username, 'password': password, 'type': 'Login'};
 
     // Starting Web API Call.
     var response = await http.post(url, body: json.encode(data));
@@ -42,8 +42,7 @@ class _LoginPageState extends State<LoginPage> {
     var message = jsonDecode(response.body);
 
     // If the Response Message is Matched.
-    if(message == 'Success')
-    {
+    if (message == 'Success') {
       // Hiding the CircularProgressIndicator.
       setState(() {
         visible = false;
@@ -51,11 +50,8 @@ class _LoginPageState extends State<LoginPage> {
 
       // Navigate to Profile Screen & Sending Email to Next Screen.
       Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => WelcomePage())
-      );
-    }else{
-
+          context, MaterialPageRoute(builder: (context) => WelcomePage()));
+    } else {
       // If Email or Password did not Matched.
       // Hiding the CircularProgressIndicator.
       setState(() {
@@ -78,7 +74,8 @@ class _LoginPageState extends State<LoginPage> {
             ],
           );
         },
-      );}
+      );
+    }
   }
 
   Widget _backButton() {
@@ -102,7 +99,8 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _entryField(TextEditingController cont1, String title, {bool isPassword = false}) {
+  Widget _entryField(TextEditingController cont1, String title,
+      {bool isPassword = false}) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Column(
@@ -116,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
             height: 10,
           ),
           TextField(
-              controller:cont1,
+              controller: cont1,
               obscureText: isPassword,
               decoration: InputDecoration(
                   border: InputBorder.none,
@@ -129,33 +127,32 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _submitButton() {
     return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.symmetric(vertical: 15),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(5)),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-                color: Colors.grey.shade200,
-                offset: Offset(2, 4),
-                blurRadius: 5,
-                spreadRadius: 2)
-          ],
-          gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [Color(0xfffbb448), Color(0xfff7892b)])),
-      child: RaisedButton(
-        onPressed: () {
-          loginUser();
-        },
-        color: Color((0xfbb44800)),
-        child: Text(
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.symmetric(vertical: 15),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                  color: Colors.grey.shade200,
+                  offset: Offset(2, 4),
+                  blurRadius: 5,
+                  spreadRadius: 2)
+            ],
+            gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [Color(0xfffbb448), Color(0xfff7892b)])),
+        child: RaisedButton(
+          onPressed: () {
+            loginUser();
+          },
+          color: Color((0xfbb44800)),
+          child: Text(
             'Login',
             style: TextStyle(fontSize: 20, color: Colors.white),
           ),
-      )
-    );
+        ));
   }
 
   Widget _divider() {
@@ -299,8 +296,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget _emailPasswordWidget() {
     return Column(
       children: <Widget>[
-        _entryField(usernameController,"Mobile / Email"),
-        _entryField(passwordController,"Password", isPassword: true),
+        _entryField(usernameController, "Mobile / Email"),
+        _entryField(passwordController, "Password", isPassword: true),
       ],
     );
   }
