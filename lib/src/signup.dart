@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_login_signup/src/Widget/bezierContainer.dart';
-import 'package:flutter_login_signup/src/loginPage.dart';
+import 'package:cybernotes/src/Widget/bezierContainer.dart';
+import 'package:cybernotes/src/loginPage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
